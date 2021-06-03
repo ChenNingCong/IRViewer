@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<body>
+  <style>
+    #tooltip {
+      background: #fff8dc;
+      border: 1px solid black;
+      border-radius: 2px;
+      white-space: nowrap;
+      padding: 1px;
+    }
+  </style>
+  <div id="tooltip" style="position: absolute; display: none;"></div>
+  TEMPLATE
+  <script type="text/javascript">
+<!-- 
+    function bBoxUnion(nodeList) {
+      //var nodeList = document.querySelectorAll(selector),
+      return nodeList.reduce(function (memo, bBox) {
+          memo.xmin = Math.min(memo.xmin, bBox.xmin);
+          memo.ymin = Math.min(memo.ymin, bBox.ymin);
+          memo.xmax = Math.max(memo.xmax, bBox.xmax);
+          memo.ymax = Math.max(memo.ymax, bBox.ymax);
+        return memo;
+      }, nodeList[0]);
+    }
+    window.addEventListener('load', (event) => {
+      titles = document.getElementsByTagName("title")
+      while (titles.length > 0) {
+        titles[0].parentElement.removeChild(titles[0])
+      }
+      return 
+      g = document.querySelectorAll("g[class=node] rect")
+      for (i = 0; i < g.length; i++) {
+        p = g[i].parentElement
+        bboxes = Array.prototype.slice.call(p.children).filter(
+          function f(node){return node.getBBox && node.tagName=="text"}).map(
+            function f(node){
+              var n = node.getBBox();
+              return {"xmin":n.x,"ymin":n.y,"xmax":n.x+n.width,"ymax":n.y+n.height}
+            })
+        if (bboxes.length == 0){
+          continue
+        }
+        var bbox = bBoxUnion(bboxes)
+        g[i].setAttribute('x', bbox.xmin)
+        g[i].setAttribute('y', bbox.ymin)
+        g[i].setAttribute('width', bbox.xmax-bbox.xmin)
+        g[i].setAttribute('height', bbox.ymax-bbox.ymin)
+        g[i].setAttribute("fill", "#f8f8f8")
+      }
+    })
+    //g = document.querySelectorAll("g[class=node] polygon")
+    //for (i=0;i<g.length;i++){
+    //	g[i].setAttribute("fill","#f8f8f8")
+    //}
+-->
+    function showTooltip(evt) {
+      let tooltip = document.getElementById("tooltip");
+      var node = evt.originalTarget;
+      while (node.tagName != "text") {
+        node = node.parentElement;
+      }
+      if (node.hasAttribute("data-msg")) {
+        tooltip.innerHTML = node.getAttribute("data-msg");
+        //console.log(node.getAttribute("data-msg"))
+        tooltip.style.display = "block";
+        tooltip.style.left = evt.pageX + 10 + 'px';
+        tooltip.style.top = evt.pageY + 10 + 'px';
+      }
+    }
+
+    function hideTooltip() {
+      var tooltip = document.getElementById("tooltip");
+      tooltip.style.display = "none";
+    }
+
+  </script>
+</body>
+
+</html>
