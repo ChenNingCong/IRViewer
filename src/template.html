@@ -17,14 +17,21 @@
   </style>
   <div id="tooltip" style="position: absolute; display: none;"></div>
   TEMPLATE
-  <script src="zoom.js"></script>
   <script type="text/javascript">
-
   window.addEventListener('load', (event) => {
       titles = document.getElementsByTagName("title")
       while (titles.length > 0) {
         titles[0].parentElement.removeChild(titles[0])
       }
+      nodes = document.getElementsByTagName("polygon")
+for (i=0;i<nodes.length;i++){
+  nodes[i].onclick = function (){
+    this.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+    inline: 'center'
+  })};
+}
       return
     })
     function showTooltip(evt) {
@@ -46,15 +53,7 @@
       var tooltip = document.getElementById("tooltip");
       tooltip.style.display = "none";
     }
-    function click(){
-      var bbox = this.getBBox()
-      zoom.to({"x":bbox.x,"y":bbox.y,"width":bbox.width,"height":bbox.height})
-      //this.scrollIntoView({ "block": "center", "behavior": "smooth", "inline": "center" })
-    }
-    g = document.querySelectorAll("g[class=node] polygon")
-    for (i = 0; i < g.length; i++) {
-      g[i].onclick = click
-    }
+    
   </script>
   
 </body>
