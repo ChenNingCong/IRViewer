@@ -11,6 +11,7 @@
       white-space: nowrap;
       padding: 1px;
     }
+
     g .node polygon {
       cursor: pointer;
     }
@@ -18,30 +19,31 @@
   <div id="tooltip" style="position: absolute; display: none;"></div>
   TEMPLATE
   <script type="text/javascript">
-  window.addEventListener('load', (event) => {
+    window.addEventListener('load', (event) => {
       document.getElementById("node1").scrollIntoView({
-    behavior: 'smooth',
-    block: 'center',
-    inline: 'center'
-  })
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+      })
       titles = document.getElementsByTagName("title")
       while (titles.length > 0) {
         titles[0].parentElement.removeChild(titles[0])
       }
       nodes = document.getElementsByTagName("polygon")
-for (i=0;i<nodes.length;i++){
-  nodes[i].onclick = function (){
-    this.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center',
-    inline: 'center'
-  })};
-}
+      for (i = 0; i < nodes.length; i++) {
+        nodes[i].onclick = function () {
+          this.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center'
+          })
+        };
+      }
       return
     })
     function showTooltip(evt) {
       let tooltip = document.getElementById("tooltip");
-      var node = evt.originalTarget;
+      var node = evt.originalTarget || evt.srcElement;
       while (node.tagName != "text") {
         node = node.parentElement;
       }
@@ -58,9 +60,9 @@ for (i=0;i<nodes.length;i++){
       var tooltip = document.getElementById("tooltip");
       tooltip.style.display = "none";
     }
-    
+
   </script>
-  
+
 </body>
 
 </html>
