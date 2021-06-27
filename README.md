@@ -10,3 +10,6 @@ Currently `IRViewer` exports two macros, `@llvmir2html` and `@llvmir2svg`, to ge
 ```
 will generate a html file stored at `dirpath` for `funcall`. If `dirpath` is not specified, then it will be default to be `pwd()`.
 `@llvm2svg` is similar to `@llvmir2html`.
+
+## License
+MIT
