@@ -147,6 +147,9 @@ function llvm2graphfile(fun,types,filepath,filetype="html")
     # reparse the ir to get the graph
     funcdef,graphs,blocks = reparse(io)
     name = "$(string(fun))_$(join(string.(types.parameters),'_'))"*".gv"
+    if length(name) > 100
+        name = name[1:100]
+    end
     # convert the graph to dot file
     indexdict,fullstr = geneNode(blocks,graphs)
     open(joinpath(filepath,name),write=true) do f
